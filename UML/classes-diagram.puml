@@ -1,0 +1,108 @@
+@startuml
+
+package "BusinessRule" #FFF {
+    package "Entity" #EEEEEE {
+        class User {
+            {field} id: int
+            {field} firstName: string
+            {field} lastName: string
+            {field} email: string
+            {field} password: string
+            {field} plainPassword: string
+            {field} RegisteredAt: DateTimeInterface
+        }
+        class JobSeeker{
+            {field} gradeLevel: int
+            {field} activity: String
+            {field} presentation: String
+            {field} phone: String
+            {field} available: bool
+            {field} availableFrom: DateTimeInterface
+            {field} minSalary: int
+            {field} maxSalary: int
+            {field} location: String
+            {field} remote: bool
+            {field} remoteOnly: bool
+            {field} id: int
+            {field} id: int
+
+        }
+        class Recruiter
+
+        class Offer{
+            {field} id: int
+            {field} name: string
+            {field} compagnyDescription: string
+            {field} jobDescription: string
+            {field} missions: string
+            {field} tasks: string
+            {field} profile: string
+            {field} softSkills: string
+            {field} minSalary: int
+            {field} maxSalary: int
+            {field} location: string
+            {field} remote: bool
+            {field} publishedAt: DateTimeInterface
+            {field} deletedAt: DateTimeInterface
+        }
+
+        class Application{
+            {field} id: int
+            {field} sentAt: DateTimeInterface
+            {field} message: string
+            {field} state: string
+            {field} reasonForRefusal: ?null
+        }
+        class Interest 
+
+        class BusinessSector
+        class Job
+        class Skill
+        class WorkExperience
+        class EducationalBackground
+        class Media 
+        class locale
+        class LocaleLevel
+        class ContractType
+
+        class Notification
+        class NotificationModel
+
+        User <|-- JobSeeker
+        User <|-- Recruiter
+
+        User "One" --o "Many" Notification : to
+        NotificationModel "One" --o "Many" Notification : to
+
+        Recruiter "One" --o "Many" Offer : to
+        JobSeeker "One" --o "Many" Application : to
+        
+        Offer "One" --* "Many" Application : to
+        Offer "Many" *-- "One" Job : to
+        Offer "Many" *-- "Many" Skill : to
+        Offer "Many" *-- "One" ContractType : to
+        Offer "One" o-- "Many" LocaleLevel : to
+
+        JobSeeker "One" --* "Many" Interest : to
+        Offer "One" --* "Many" Interest : to
+        
+        Job "Many" *-- "One" BusinessSector : to
+        JobSeeker "Many" *-- "One" Job : to
+        JobSeeker "Many" *-- "Many" Skill : to
+        JobSeeker "Many" *-- "Many" ContractType : to
+        JobSeeker "One" o-- "Many" WorkExperience : to
+        JobSeeker "One" o-- "Many" EducationalBackground : to
+        JobSeeker "One" o-- "Many" Media : to
+        JobSeeker "One" o-- "Many" LocaleLevel : to
+        locale "One" --* "Many" LocaleLevel : to
+
+    }
+    ' package "Use Case" #EEEEEE {
+    '     class AcceptApplication
+    '     class CloseApplication
+
+    ' }
+}
+
+
+@enduml
